@@ -18,6 +18,8 @@ function CakeDetails(props){
   </div>
 </div>
 
+
+
     );
 }
 
