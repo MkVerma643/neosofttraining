@@ -11,7 +11,7 @@ class SignUp extends Component{
     user={}
     register=()=>{
       
-       if(!this.user.email && !this.user.password)
+       if(!this.user.email || !this.user.password || !this.user.name)
        {
         this.setState({
             errorMessage:"Please enter valid credentials"
@@ -21,7 +21,7 @@ class SignUp extends Component{
            let apiurl="https://apibyashu.herokuapp.com/api/register"
            axios({
                url:apiurl,
-               method: "post",
+               method:"post",
                data:this.user
            }).then((response)=>{
                console.log(this.user)
@@ -39,9 +39,9 @@ class SignUp extends Component{
     getEmail=(event)=>{
         this.user.email= event.target.value;
     }
-    getUsername=(event)=>{
+    getName=(event)=>{
         event.preventDefault();
-        this.user.username=event.target.value
+        this.user.name=event.target.value
     }
     getPassword=(event)=>{
         event.preventDefault();
@@ -59,7 +59,7 @@ class SignUp extends Component{
                     </div>
                     <div className="form-group">
                         <label>Username</label>
-                        <input type="username" className="form-control" onChange={this.getUsername}></input>
+                        <input type="username" className="form-control" onChange={this.getName}></input>
                     </div>
                     <div className="form-group">
                         <label>Password</label>

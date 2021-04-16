@@ -1,26 +1,14 @@
+function CakeDetails() {
+	return (
+		<div style={{backgroundImage:"cake6.jpeg"}}>
 
+		<img src="cake3.jpeg" /><br/>
+		<label>Cake Name: Blue Berry Cake </label><br/>
+		<label>Price: 200 Rs </label><br/>
+		<label>Location : Pune</label><br/>
 
-function CakeDetails(props){
-    return(
-        <div className="card mb-3" style="max-width: 540px;">
-    <div className="row no-gutters">
-    <div className="col-md-4">
-      <img src={props.cdata.image} alt="..." />
-    </div>
-    <div className="col-md-8">
-      <div className="card-body">
-        <h5 className="card-title">{props.cdata.name}</h5>
-        <p className="card-text">{props.cdata.price}</p>
-        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-    );
+		</div>
+		)
 }
 
-export default CakeDetails
+export default CakeDetails;

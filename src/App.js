@@ -11,6 +11,10 @@ import cakes from './data';
 import {useState} from 'react';
 import CakeDetails from "./CakeDetails";
 
+import { BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom"
+
+
+
 function App() {
     var [login,setLogin]=useState(false);
     var [show,setShow]=useState(false)
@@ -21,20 +25,19 @@ function App() {
     }
   return (
     <div>
-    <Navbar islogin={login} setlogin={setLogin}/>
-    <Carousel/>
-    <Signup/>
-    <Login islogin={login} setlogin={setLogin}/>
-    {/* <center><SignUp/></center> */}
-    {show?<CakeDetails  cdata={com}/>:''}
-    <div className="row">
-      
-      {cakes.length>0 && cakes.map((each,index)=>{
-        return(<Card cake={each} showdetails={showDetails} cakedata={each} key={index}/>)
-      })
-      }
-    
-   </div>
+
+<Router>
+      <Navbar islogin={login} setlogin={setLogin}/>
+        <Switch>
+          <Route path="/" exact component={Home}/>
+          <Route path="/login" exact component={Login}/>
+          <Route path="/signup" exact component={Signup}/>
+          <Route path="/cake/:cakeid" exact component={CakeDetails}/>
+          <Route path="/*">
+            <Redirect to="/"></Redirect>
+          </Route>
+        </Switch>
+      </Router>
   </div>
   );
 }
