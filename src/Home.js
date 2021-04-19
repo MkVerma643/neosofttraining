@@ -1,32 +1,30 @@
-import Carousel from "./Carousel"
-import Cake from "./Cake"
-import cakes from "./data"
-import CakeDetails from "./CakeDetails"
+import Carousel from "./Carousel";
+import Cake from "./Cake";
+import cakes from "./data";
+import CakeDetails from "./CakeDetails";
+import {useState} from 'react';
 
-var obj={
-    name:"Choco Delight",
-    image:"mg.jpg",
-    id:1111,
-    price:900
-
-}
+// var obj={
+//     name:"Choco Delight",
+//     image:"cake1.png",
+//     price:900,
+//     id:3534
+// }
 
 function Home(){
     return (
         <div style={{border:"1px solid"}}>
             <Carousel></Carousel>
             <div className="row">
+                {/* <Cake cakedata={obj} /> */}
 
-                {/* <Cake cakedata={obj} />
                 {cakes?.length>0 && cakes.map((each,index)=>{
-                    return (<Cake cakedata={each} index = {index} />)
-                })} */}
+                    return < Cake cakedata={each} key={index} />
 
-                <CakeDetails></CakeDetails>
-                
+                })}
             </div>
         </div>
     );
 }
 
-export default Home
+export default Home;

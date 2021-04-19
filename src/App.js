@@ -10,6 +10,7 @@ import Login from './Login'
 import cakes from './data';
 import {useState} from 'react';
 import CakeDetails from "./CakeDetails";
+import Search from "./Search";
 
 import { BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 
@@ -28,8 +29,6 @@ if(localStorage.token){
     
 
   })
-
-
 }
 
 
@@ -50,6 +49,7 @@ function App() {
           <Route path="/" exact component={Home}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/signup" exact component={Signup}/>
+          <Route path="/search" exact component={Search}/>
           <Route path="/cake/:cakeid" exact component={CakeDetails}/>
           <Route path="/*">
             <Redirect to="/"></Redirect>
@@ -62,3 +62,5 @@ function App() {
 
 
 export default App;
+
+

@@ -1,7 +1,7 @@
 import Carousel from './Carousel';
 import Cake from './Cake';
-import CakeDetail from './CakeDetail';
-// import cakes from './data';
+import CakeDetail from './CakeDetails';
+import cakes from './data';
 import {useEffect, useState} from "react"
 import axios from "axios"
 import queryString from "query-string";

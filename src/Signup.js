@@ -1,5 +1,6 @@
 import {Component} from 'react';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 class SignUp extends Component{
     constructor(){
@@ -52,7 +53,7 @@ class SignUp extends Component{
         return(
                 <div style={{"width":"50%", "margin":"auto"}}>
                     <h3>Register</h3>
-                    hey users {this.state.onlineusers}
+                    {/* hey users {this.state.onlineusers} */}
                     <div className="form-group">
                         <label>Email</label>
                         <input type="email" className="form-control" onChange={this.getEmail}></input>
@@ -65,10 +66,14 @@ class SignUp extends Component{
                         <label>Password</label>
                         <input type="password" className="form-control" onChange={this.getPassword}></input>
                     </div>
-                    <div className="alert alert-danger">
-                        {this.state.errorMessage}
+                    
+                    <div>
+                        <Link to="/login">Already Registered? Login Here</Link>
                     </div>
+                    
                     <button className="btn btn-primary" onClick={this.register}>Register</button>
+
+
                 </div>
         )
     }

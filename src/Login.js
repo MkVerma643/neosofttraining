@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {useState,useEffect} from 'react'
+import { Link } from 'react-router-dom'
 
 function Login(props){
     // useEffect(()=>{
@@ -67,9 +68,13 @@ function Login(props){
                     <div className="text-danger">
                         {error}
                     </div>
-                    
+                    <div>
+                        <Link to="/signup">New User? Click Here</Link>
+
+                    </div>
                     <button className="btn btn-primary" onClick={login}>Login</button>
-                </div></>:''}
+                </div></>:''
+                }
             
         </div>
     )
