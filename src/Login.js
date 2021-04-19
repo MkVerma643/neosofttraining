@@ -1,9 +1,13 @@
+import axios from 'axios'
 import {useState,useEffect} from 'react'
 
 function Login(props){
     // useEffect(()=>{
     //     alert('Mounted and Updated')
     // },[])
+
+    console.log(">>>>>>>>>>props", props)
+
     var [error,setError]=useState('')
     var user={}
     var [user, setUser]=useState({})
@@ -24,9 +28,21 @@ function Login(props){
     }
 
     let login=function(){
+        console.log("User is trying to login", user)
+        let loginapi="https://apibyashu.herokuapp.com/api/login"
+
+        axios({
+                url:loginapi,
+               method:"get",
+               data:this.user
+
+               
+        })
+
     if(!user.email && !user.password)
        {
         setError("Please enter valid credentials")
+
         
        }else{
         console.log(user)
@@ -58,5 +74,6 @@ function Login(props){
         </div>
     )
 }
+
 
 export default Login

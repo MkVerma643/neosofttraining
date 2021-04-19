@@ -8,10 +8,15 @@ import "jquery/dist/jquery.slim"
 import "bootstrap/dist/js/bootstrap.bundle"
 import "bootstrap/dist/css/bootstrap.min.css"
 
+import "./reduxstore/store"
+import {Provider} from "react-redux";
+import dmart from "./reduxstore/store"
 
 ReactDOM.render( 
     <React.StrictMode >
-    
+    <Provider store={dmart}>
+        <App></App>
+    </Provider>
     <App/>
     </React.StrictMode>,
     document.getElementById('root')

@@ -1,12 +1,13 @@
 
 
 function Navbar(props){
-  var counter=0;
+  var onlineusers=0;
   let search=function(event){
+      onlineusers++;
       event.preventDefault()
-      counter++;
-      console.log(counter)
+
   }
+  
 
   let onLogin=()=>{
       props.setlogin(true)

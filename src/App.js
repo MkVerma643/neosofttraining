@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-
+import axios from "axios"
 import Home from "./Home.js";
 import Navbar from "./Navbar"
 import Card from './Card';
@@ -11,8 +11,26 @@ import cakes from './data';
 import {useState} from 'react';
 import CakeDetails from "./CakeDetails";
 
-import { BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom"
+import { BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 
+
+if(localStorage.token){
+  var token=localStorage.token
+  console.log("Mean user is already logged in")
+  axios({
+    method:'get',
+    url:'',
+    headers:{
+      authtoken:token
+    }
+  }).then((response)=>{
+    console.log("response from user api", response)
+    
+
+  })
+
+
+}
 
 
 function App() {
@@ -41,5 +59,6 @@ function App() {
   </div>
   );
 }
+
 
 export default App;

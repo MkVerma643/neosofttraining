@@ -17,12 +17,12 @@ function Home(){
             <Carousel></Carousel>
             <div className="row">
 
-                {/* <Cake cakedata={obj} /> */}
+                {/* <Cake cakedata={obj} />
                 {cakes?.length>0 && cakes.map((each,index)=>{
                     return (<Cake cakedata={each} index = {index} />)
-                })}
+                })} */}
 
-                {/* <CakeDetails></CakeDetails> */}
+                <CakeDetails></CakeDetails>
                 
             </div>
         </div>
