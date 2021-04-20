@@ -1,30 +1,48 @@
-import Carousel from "./Carousel";
-import Cake from "./Cake";
-import cakes from "./data";
-import CakeDetails from "./CakeDetails";
-import {useState} from 'react';
+import Header from './header';
+import Footer from './Footer';
+import Carousel from './Carousel';
+import Card from './Card';
+import Signup from './Signup';
+import Login from './Login';
+import CakeDetails from './CakeDetails';
+import { useEffect, useState } from 'react';
+import axios from "axios";
+import Search from './Search';
 
-// var obj={
-//     name:"Choco Delight",
-//     image:"cake1.png",
-//     price:900,
-//     id:3534
-// }
+function Home(params) {
 
-function Home(){
-    return (
-        <div style={{border:"1px solid"}}>
-            <Carousel></Carousel>
-            <div className="row">
-                {/* <Cake cakedata={obj} /> */}
+  let [cakes, setCakes] = useState({})
+  let [searchCake, setSearchCake] = useState({})
+  let [login, setlogin] = useState(false);
 
-                {cakes?.length>0 && cakes.map((each,index)=>{
-                    return < Cake cakedata={each} key={index} />
+  useEffect(() => {
+    axios({
+      url: "https://apibyashu.herokuapp.com/api/allcakes",
+      method: "get",
+    }).then((response) => {
+      setCakes(response.data.data)
+    }, (error) => {
+      console.log(error)
+    })
+  }, [])
+  
+  return (
+    <div className="App">
 
-                })}
-            </div>
-        </div>
-    );
+      <div className="row">
+      </div>
+      <Carousel />      
+      <h1>My CakeShop</h1>
+
+      <div className="row">
+        {cakes?.length > 0 && cakes.map((each, index) => {
+          return (<Card data={each} key={index} />)
+        })}
+      </div>
+      
+      <Footer />
+    </div>
+  );
 }
 
-export default Home;
+export default Home

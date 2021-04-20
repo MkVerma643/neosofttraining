@@ -1,59 +1,76 @@
-import axios from 'axios'
-import {useState,useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import {useState,useEffect} from 'react';
+import {Link, withRouter} from 'react-router-dom';
+import axios from "axios";
+import { connect } from 'react-redux';
 
-function Login(props){
-    // useEffect(()=>{
-    //     alert('Mounted and Updated')
-    // },[])
-
-    console.log(">>>>>>>>>>props", props)
-
-    var [error,setError]=useState('')
-    var user={}
-    var [user, setUser]=useState({})
-    let getEmail=(event)=>{
+function Login (props){
+    
+    var user = {}
+    var [user, setUser] = useState({})
+    var [message, setMessage] = useState({})
+    
+   let getEmail = (event)=>{ 
         setUser({
             ...user,
-            email:event.target.value
+                email : event.target.value
+            });
+            
+            user.email=event.target.value;
+            console.log(user,'ss')
+        }
+       
+    let getPassword = (event)=>{ 
+         setUser({
+             ...user,
+            password :  event.target.value
         })
-        user.email=event.target.value;
-    }
-
-    let getPassword=(event)=>{
-        setUser({
-            ...user,
-            password:event.target.value
-        })
-        user.password=event.target.value;
-    }
-
-    let login=function(){
-        console.log("User is trying to login", user)
-        let loginapi="https://apibyashu.herokuapp.com/api/login"
-
-        axios({
-                url:loginapi,
-               method:"get",
-               data:this.user
-
-               
-        })
-
-    if(!user.email && !user.password)
-       {
-        setError("Please enter valid credentials")
-
         
-       }else{
+        console.log(user,'pas')
+    }
+    let login =()=>{
         console.log(user)
-        props.setlogin(true)
-        setError("")
+       if(!user.email || !user.password){
+        setMessage({
+            error: "Please Fill all required fields"
+        }); 
+       }
+       else{
+        axios({
+            url:"https://apibyashu.herokuapp.com/api/login",
+            method:"post",
+            data:user,
+        }).then((response)=>{
+            console.log("success: ",response)
+            if(response.data.token){
+                localStorage.token = response.data.token
+                props.dispatch({
+                    type:"LOGIN",
+                    payload:response.data
+                })
+            setMessage({
+                success: "Login Successfull"
+            });
+            props.history.push('/')
+         props.set(true)
+         props.userName(user.name)
+        }
+        else{
+            
+            setMessage({
+                error: "Invalid Credentials"
+            }); 
+        }
+        },(error)=>{
+            console.log(error)
+        })
+        
        }
     }
-    return(
+   
+   
+ return(
         <div>
-            {!props.islogin?<><h3>Login</h3>
+            <h3>Login</h3>
             <div style={{"width":"50%", "margin":"auto"}}>
                     <div className="form-group">
                         <label>Email</label>
@@ -66,19 +83,21 @@ function Login(props){
                         {user.password}    
                     </div>
                     <div className="text-danger">
-                        {error}
+                        {console.error()}
                     </div>
                     <div>
                         <Link to="/signup">New User? Click Here</Link>
 
                     </div>
-                    <button className="btn btn-primary" onClick={login}>Login</button>
-                </div></>:''
-                }
-            
-        </div>
-    )
-}
+                    <button className="btn btn-secondary m-3" onClick={login}>Login</button>
+                    </div>
+                    </div>
+            );
+ }     
 
+Login =  withRouter(Login)
+export default connect(function (state,props) {
+        return {
 
-export default Login
+        }
+})(Login);

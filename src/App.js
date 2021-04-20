@@ -1,66 +1,60 @@
-import logo from "./logo.svg";
 import "./App.css";
+import { BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 import axios from "axios"
 import Home from "./Home.js";
-import Navbar from "./Navbar"
-import Card from './Card';
 import Signup from "./Signup"
-import Carousel from "./Carousel"
 import Login from './Login'
-import cakes from './data';
 import {useState} from 'react';
 import CakeDetails from "./CakeDetails";
 import Search from "./Search";
-
-import { BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
+import Header from './header';
+import Cart from './Cart';
+import Checkout from './Checkout';
+import mart from './reduxstore/store'; 
+const baseUrl = 'https://apibyashu.herokuapp.com/api/'
 
 
 if(localStorage.token){
-  var token=localStorage.token
-  console.log("Mean user is already logged in")
   axios({
-    method:'get',
-    url:'',
+    method:"get",
+    url:baseUrl+'getuserdetails',
     headers:{
-      authtoken:token
+      authtoken:localStorage.token
     }
-  }).then((response)=>{
-    console.log("response from user api", response)
-    
-
+  }).then((response)=>{ 
+    console.log(response)
+    mart.dispatch({
+      type:"LOGIN",
+      payload:response.data.data
+  })
+  },(error)=>{
+    console.log("get user details api. Error: ",error)
   })
 }
-
-
 function App() {
-    var [login,setLogin]=useState(false);
-    var [show,setShow]=useState(false)
-    var [com,setCom]=useState({});
-    let showDetails=(data)=>{
-        setShow(true)
-        setCom(data)
-    }
-  return (
-    <div>
+ 
+  let [details, setDetails] = useState({}) 
+  let [cakes, setCakes] = useState({})
+  let [searchCake, setSearchCake] = useState({})
+  let [login, setlogin] = useState(false);
+  let [name, setName] = useState('');
+  
 
-<Router>
-      <Navbar islogin={login} setlogin={setLogin}/>
-        <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/login" exact component={Login}/>
-          <Route path="/signup" exact component={Signup}/>
-          <Route path="/search" exact component={Search}/>
-          <Route path="/cake/:cakeid" exact component={CakeDetails}/>
-          <Route path="/*">
-            <Redirect to="/"></Redirect>
-          </Route>
-        </Switch>
-      </Router>
+return (
+  <div className="App">
+    <Router>
+    <Header getSearchData={setSearchCake} userName={name} checkLogin={login} changeLogout={setlogin,setlogin}/>
+      <Route exact path='/' component={Home}></Route>
+      <Route exact path='/signup' component={Signup}></Route>
+      <Route exact path='/login' ><Login userName={setName} checkLogin={login} set={setlogin}/></Route>
+      <Route exact path='/cake/:cakeid'><CakeDetails /></Route>
+      <Route exact path='/search' component={Search}></Route>
+      <Route exact path='/cart' component={Cart}></Route>
+      <Route exact path='/checkout' component={Checkout}></Route> 
+    </Router>
+        {/* <Login userName={setName} checkLogin={login} set={setlogin}/></Router> */}
   </div>
-  );
+);
 }
 
-
 export default App;
-
-

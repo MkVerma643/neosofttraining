@@ -16,6 +16,7 @@ var demo = function(state = null, action){
             return state
         } 
         case "CART":{
+            // console.log("here we have to write logic for cart")
             console.log("here we have to write logic for cart")
             state = {...state}   
             state['cart'] = {data:action.payload}

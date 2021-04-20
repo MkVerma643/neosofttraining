@@ -23,14 +23,14 @@ function CakeDetails(props) {
 }
   const params = useParams();
   let [details, setDetails] = useState({}) 
-  // useEffect(()=>{
+  
     let cakeapi = "https://apibyashu.herokuapp.com/api/cake/"+params.cakeid
     axios({
       method:'get',
       url:cakeapi,
     }).then((response)=>{
       setDetails(response.data.data)
-      // console.log(response.data.data)
+      
     },(error)=>{
       console.log("error",error)
     })

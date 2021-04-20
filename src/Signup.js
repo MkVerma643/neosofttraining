@@ -2,11 +2,11 @@ import {Component} from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 
-class SignUp extends Component{
-    constructor(){
+class Signup extends Component{
+    constructor(props){
         super()
-        this.state={
-            onlineusers:0
+        this.state = {
+            count : 0,  
         }
     }
     user={}
@@ -79,4 +79,4 @@ class SignUp extends Component{
     }
 }
 
-export default SignUp
+export default Signup
