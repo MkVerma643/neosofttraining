@@ -10,7 +10,11 @@ import Search from "./Search";
 import Header from './header';
 import Cart from './Cart';
 import Checkout from './Checkout';
+import Address from './Address';
 import mart from './reduxstore/store'; 
+import ResetPassword from './ResetPassword';
+
+
 const baseUrl = 'https://apibyashu.herokuapp.com/api/'
 
 
@@ -22,12 +26,18 @@ if(localStorage.token){
       authtoken:localStorage.token
     }
   }).then((response)=>{ 
-    console.log(response)
-    mart.dispatch({
-      type:"LOGIN",
-      payload:response.data.data
-  })
+    console.log("API HIT: User Details")
+    if(response.data.data){
+      mart.dispatch({
+        type:"LOGIN",
+        payload:response.data.data
+    })
+    }
+    else{
+      localStorage.removeItem('token');
+    }
   },(error)=>{
+    localStorage.removeItem('token');
     console.log("get user details api. Error: ",error)
   })
 }
@@ -51,6 +61,8 @@ return (
       <Route exact path='/search' component={Search}></Route>
       <Route exact path='/cart' component={Cart}></Route>
       <Route exact path='/checkout' component={Checkout}></Route> 
+      <Route exact path='/address' component={Address}></Route> 
+      <Route path='/resetpassword' component={ResetPassword}></Route> 
     </Router>
         {/* <Login userName={setName} checkLogin={login} set={setlogin}/></Router> */}
   </div>

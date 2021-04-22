@@ -11,11 +11,17 @@ function CakeDetails(props) {
       data:{name:data.name,image:data.image,cakeid:data.cakeid,price:data.price,weight:data.weight}
     }).then((response)=>{ 
       if(response.data.message == "Added to cart"){
-        console.log(console.log("....cartdata: " ,response.data.data.cakeid))
+        // console.log(console.log("....cartdata: " ,response.data.data.cakeid))
         props.dispatch({
             type:"CART",
             payload:response.data.data.cakeid
         })
+      }
+      else if(response.data === "Session Expired"){
+        alert("Session Expire Please Login")
+      }
+      else {
+        console.log("Error: add to cart didn't work",response)
       }
     },(error)=>{
       console.log("addcart error",error)
@@ -25,16 +31,17 @@ function CakeDetails(props) {
   let [details, setDetails] = useState({}) 
   
     let cakeapi = "https://apibyashu.herokuapp.com/api/cake/"+params.cakeid
-    axios({
-      method:'get',
-      url:cakeapi,
-    }).then((response)=>{
-      setDetails(response.data.data)
-      
-    },(error)=>{
-      console.log("error",error)
-    })
-  // },[])
+    useEffect(()=>{
+      axios({
+        method:'get',
+        url:cakeapi,
+      }).then((response)=>{
+        setDetails(response.data.data)
+        console.log(response.data.data)
+      },(error)=>{
+        console.log("error",error)
+      })
+    },[cakeapi])
     return (
         <div className="jumbotron">
           <div className="row">
@@ -58,4 +65,8 @@ function CakeDetails(props) {
       </div>)
 }
 
-export default connect()(CakeDetails)
+export default connect(function(state,props){
+  return {
+    cart:state?.cart,
+  }
+})(CakeDetails)

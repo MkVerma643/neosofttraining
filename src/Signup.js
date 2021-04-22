@@ -10,15 +10,39 @@ class Signup extends Component{
         }
     }
     user={}
+    getEmail=(event)=>{
+        this.user.email= event.target.value;
+    }
+    getName=(event)=>{
+        event.preventDefault();
+        this.user.name=event.target.value
+    }
+    getPassword=(event)=>{
+        event.preventDefault();
+        this.user.password=event.target.value
+    }
+    validateEmail = (email)=>{
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+
     register=()=>{
       
-       if(!this.user.email || !this.user.password || !this.user.name)
-       {
-        this.setState({
-            errorMessage:"Please enter valid credentials"
-        })
-        
-       }else{ 
+        if(!this.user.email || !this.user.password){
+            this.setState({
+                errorMessage : 'All field are required'
+            })
+        }
+        else if (!this.validateEmail(this.user.email)){
+            this.setState({
+                errorMessage : 'A Valid Email Please'
+            })
+        }
+        else{
+            this.setState({
+                errorMessage : null
+            })
+         
            let apiurl="https://apibyashu.herokuapp.com/api/register"
            axios({
                url:apiurl,
@@ -37,18 +61,7 @@ class Signup extends Component{
        }
     }
     
-    getEmail=(event)=>{
-        this.user.email= event.target.value;
-    }
-    getName=(event)=>{
-        event.preventDefault();
-        this.user.name=event.target.value
-    }
-    getPassword=(event)=>{
-        event.preventDefault();
-        this.user.password=event.target.value
-    }
-
+    
     render(){
         return(
                 <div style={{"width":"50%", "margin":"auto"}}>
@@ -72,7 +85,11 @@ class Signup extends Component{
                     </div>
                     
                     <button className="btn btn-primary" onClick={this.register}>Register</button>
-
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    {this.state.errorMessage && <span  className=" alert alert-danger">{this.state.errorMessage}</span> }
+                    {this.state.Message && <span  className="alert alert-success">{this.state.Message}</span> }
 
                 </div>
         )

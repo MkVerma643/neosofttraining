@@ -4,36 +4,44 @@ import axios from "axios";
 import { connect } from 'react-redux';
 
 function Login (props){
+
+    function validateEmail(email) 
+    {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
     
     var user = {}
     var [user, setUser] = useState({})
     var [message, setMessage] = useState({})
     
-   let getEmail = (event)=>{ 
+    let getEmail = (event)=>{ 
         setUser({
             ...user,
                 email : event.target.value
-            });
-            
-            user.email=event.target.value;
-            console.log(user,'ss')
+            }); 
+            user.email=event.target.value; 
         }
        
     let getPassword = (event)=>{ 
          setUser({
              ...user,
             password :  event.target.value
-        })
-        
-        console.log(user,'pas')
+        }) 
     }
-    let login =()=>{
-        console.log(user)
-       if(!user.email || !user.password){
-        setMessage({
-            error: "Please Fill all required fields"
-        }); 
-       }
+        let login =()=>{
+       
+            console.log(user)
+           if(!user.email || !user.password){
+            setMessage({
+                error: "Enter Email And Password"
+            }); 
+           }
+           else if (!validateEmail(user.email)){
+            setMessage({
+                error:  `A Valid Email Please`
+            }); 
+           }
        else{
         axios({
             url:"https://apibyashu.herokuapp.com/api/login",
@@ -90,6 +98,13 @@ function Login (props){
 
                     </div>
                     <button className="btn btn-secondary m-3" onClick={login}>Login</button>
+                    <br></br>
+                    <Link to="/resetpassword" >Forgot Password?</Link>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    {message.success && <span className="alert alert-success">{message.success}</span>}
+                    {message.error && <span className="alert alert-danger">{message.error}</span>}
                     </div>
                     </div>
             );

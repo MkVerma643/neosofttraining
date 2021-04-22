@@ -6,13 +6,22 @@ function Cart(props) {
     let [removed, setRemoved] = useState(false)
     let removefromcart = (data) => { 
         axios({
-            method:'post',
-            url:"https://apibyashu.herokuapp.com/api/removecakefromcart",
-            headers:{authtoken:localStorage.token},
-            data:{cakeid:data}
-          }).then((response)=>{  
-            setRemoved(true)
-          },(error)=>{
+          method:'post',
+          url:"https://apibyashu.herokuapp.com/api/removecakefromcart",
+          headers:{authtoken:localStorage.token},
+          data:{cakeid:data}
+        }).then((response)=>{  
+          console.log("API HIT: Cart Removed Success")
+          setRemoved(true)
+          if(response.data.message === "Removed  item from cart"){
+            //resetting cart
+
+            props.dispatch({
+              type:"UPDATE-CART",
+              payload:false
+            })  //resetting cart
+          }
+        },(error)=>{
             console.log("error",error)
           })
     }
