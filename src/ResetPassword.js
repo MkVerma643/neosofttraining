@@ -20,7 +20,6 @@ function ResetPassword(props){
             }).then((response)=>{
                 console.log(response)
                 if(response.data.message=="Password Sent to your email"){ 
-                console.log("API HIT:","Forgot Password")
                 setMessage({
                     success: "Password Sent to your email",
                     error:null
@@ -35,7 +34,6 @@ function ResetPassword(props){
                 });
             }
             else{
-                // console.log("asdsad");
                 setMessage({
                     error: "Something went Wrong"
                 }); 
@@ -55,13 +53,14 @@ function ResetPassword(props){
 
     return (
         <center><br/>
-            <h3>Reset Password</h3>
-            
-            <form style={{width:"500px"}} onSubmit={reset}>
+            <h4>Reset Password</h4>
+            <br></br>
+            <form style={{width:"600px"}} onSubmit={reset}>
                 <input id="email" type="text" className="form-control" name="email" placeholder="Enter Your Email"/>
                  <br/>
-                 <p style={{fontSize:"9px;"}}>Enter your email and you'll receive an email to reset your password</p>
-                 <button  className="form-control btn btn-dark">Reset Link</button>
+                 <p>Enter your email and you'll receive an email to reset your password</p>
+
+                 <button  className="form-control btn btn-light">Reset Link</button>
                 <br/><br/>
                 {message.success && <span className="alert alert-success">{message.success}</span>}
             {message.error && <span className="alert alert-danger">{message.error}</span>}
