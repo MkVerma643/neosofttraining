@@ -6,22 +6,22 @@ function Cart(props) {
     let [removed, setRemoved] = useState(false)
     let removefromcart = (data) => { 
         axios({
-          method:'post',
-          url:"https://apibyashu.herokuapp.com/api/removecakefromcart",
-          headers:{authtoken:localStorage.token},
-          data:{cakeid:data}
-        }).then((response)=>{  
-          console.log("API HIT: Cart Removed Success")
-          setRemoved(true)
-          if(response.data.message === "Removed  item from cart"){
-            //resetting cart
+            method:'post',
+            url:"https://apibyashu.herokuapp.com/api/removecakefromcart",
+            headers:{authtoken:localStorage.token},
+            data:{cakeid:data}
+          }).then((response)=>{  
+            console.log("API HIT: Cart Removed Success")
+            setRemoved(true)
+            if(response.data.message === "Removed  item from cart"){
+              //resetting cart
 
-            props.dispatch({
-              type:"UPDATE-CART",
-              payload:false
-            })  //resetting cart
-          }
-        },(error)=>{
+              props.dispatch({
+                type:"UPDATE-CART",
+                payload:false
+              })  //resetting cart
+            }
+          },(error)=>{
             console.log("error",error)
           })
     }
@@ -38,10 +38,10 @@ function Cart(props) {
                     <th>Cake Quantity</th>
                     <th>Remove</th>
                 </tr>
-                {props.cart?.data?.length > 0 && props.cart.data.map((each,index)=>{
+                {props.cart?.data?.length > 0 && props?.cart?.data?.map((each,i)=>{
                     return (
-                        <tr>
-                            <td>{each.name}</td>
+                        <tr key={i}>
+                            <td >{each.name}</td>
                             <td><img src={each.image} alt={each.name} style={{width:"100px"}}/></td>
                             <td>{each.price}</td>
                             <td>{each.quantity}</td>
@@ -50,7 +50,9 @@ function Cart(props) {
                     )
                 })} 
             </table>
-            {props.isLoggedin? <Link to="/checkout"><button className="btn btn-success">Checkout</button></Link>:''}
+            {/* {props.isLoggedin?   :''} */}
+              <Link to="/checkout"><button className="btn btn-success">Checkout</button></Link>
+             
         </div>
     )
 }

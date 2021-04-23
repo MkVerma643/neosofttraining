@@ -9,8 +9,11 @@ import CakeDetails from "./CakeDetails";
 import Search from "./Search";
 import Header from './header';
 import Cart from './Cart';
-import Checkout from './Checkout';
-import Address from './Address';
+import Checkout from './checkout';
+import address from "./address";
+import payment from "./payment";
+import order from "./order";
+
 import mart from './reduxstore/store'; 
 import ResetPassword from './ResetPassword';
 
@@ -61,10 +64,11 @@ return (
       <Route exact path='/search' component={Search}></Route>
       <Route exact path='/cart' component={Cart}></Route>
       <Route exact path='/checkout' component={Checkout}></Route> 
-      <Route exact path='/address' component={Address}></Route> 
+       
+      
       <Route path='/resetpassword' component={ResetPassword}></Route> 
     </Router>
-        {/* <Login userName={setName} checkLogin={login} set={setlogin}/></Router> */}
+       
   </div>
 );
 }
