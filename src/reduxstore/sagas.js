@@ -5,7 +5,7 @@ function login(action){
     return axios({
         method:"post",
         url:"",
-        data.action.payload
+        data:action.payload
     })
 }
 
