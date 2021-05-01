@@ -1,5 +1,6 @@
 send()=>{ 
-        let apiurl="https://apibyashu.herokuapp.com/api/addcaketocart"
+        let apiurl="https://apifromashu.herokuapp.com
+.herokuapp.com/api/addcaketocart"
            axios({
                url:apiurl,
                method:"post",

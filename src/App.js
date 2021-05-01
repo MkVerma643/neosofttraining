@@ -24,7 +24,7 @@ import mart from "./reduxstore/store";
 import ResetPassword from "./ResetPassword";
 
 const admin = lazy(() => import("./Admin"));
-const baseUrl = "https://apibyashu.herokuapp.com/api/";
+const baseUrl = "https://apifromashu.herokuapp.com/api/";
 
 if (localStorage.token) {
   axios({

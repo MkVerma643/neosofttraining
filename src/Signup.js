@@ -43,7 +43,7 @@ class Signup extends Component{
                 errorMessage : null
             })
          
-           let apiurl="https://apibyashu.herokuapp.com/api/register"
+           let apiurl="https://apifromashu.herokuapp.com/api/register"
            axios({
                url:apiurl,
                method:"post",

@@ -7,7 +7,7 @@ function Cart(props) {
     let removefromcart = (data) => { 
         axios({
             method:'post',
-            url:"https://apibyashu.herokuapp.com/api/removecakefromcart",
+            url:"https://apifromashu.herokuapp.com/api/removecakefromcart",
             headers:{authtoken:localStorage.token},
             data:{cakeid:data}
           }).then((response)=>{  

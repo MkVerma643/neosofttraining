@@ -17,7 +17,7 @@ function Home(params) {
 
   useEffect(() => {
     axios({
-      url: "https://apibyashu.herokuapp.com/api/allcakes",
+      url: "https://apifromashu.herokuapp.com/api/allcakes",
       method: "get",
     }).then((response) => {
       setCakes(response.data.data)

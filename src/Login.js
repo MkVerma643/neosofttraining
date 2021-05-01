@@ -44,7 +44,7 @@ function Login (props){
            }
        else{
         axios({
-            url:"https://apibyashu.herokuapp.com/api/login",
+            url:"https://apifromashu.herokuapp.com/api/login",
             method:"post",
             data:user,
         }).then((response)=>{

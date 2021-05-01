@@ -7,7 +7,7 @@ function Header (props){
   useEffect(()=>{
     axios({
         method:'post',
-        url:"https://apibyashu.herokuapp.com/api/cakecart",
+        url:"https://apifromashu.herokuapp.com/api/cakecart",
         headers:{authtoken:localStorage.token},
       }).then((response)=>{ 
         props.dispatch({

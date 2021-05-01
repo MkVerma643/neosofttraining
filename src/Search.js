@@ -12,7 +12,7 @@ function Search(props){
           useEffect(()=>{
             
             axios({
-              url:"https://apibyashu.herokuapp.com/api/searchcakes"+props.location.search,
+              url:"https://apifromashu.herokuapp.com/api/searchcakes"+props.location.search,
               method:"get", 
           }).then((response)=>{
               console.log("responese:",response)

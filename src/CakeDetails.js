@@ -6,7 +6,7 @@ function CakeDetails(props) {
   let addtocart = (data) =>{ 
     axios({
       method:'post',
-      url:"https://apibyashu.herokuapp.com/api/addcaketocart",
+      url:"https://apifromashu.herokuapp.com/api/addcaketocart",
       headers:{authtoken:localStorage.token},
       data:{name:data.name,image:data.image,cakeid:data.cakeid,price:data.price,weight:data.weight}
     }).then((response)=>{ 
@@ -30,7 +30,7 @@ function CakeDetails(props) {
   const params = useParams();
   let [details, setDetails] = useState({}) 
   
-    let cakeapi = "https://apibyashu.herokuapp.com/api/cake/"+params.cakeid
+    let cakeapi = "https://apifromashu.herokuapp.com/api/cake/"+params.cakeid
     useEffect(()=>{
       axios({
         method:'get',
