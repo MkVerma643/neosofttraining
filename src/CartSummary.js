@@ -2,7 +2,7 @@ import { connect } from "react-redux"
 import cart from "./cart"
 
 function Summary(props) {
-    
+    let total = 0;
     return ( 
             <table className="table table-stripped" >
                 <thead></thead>
@@ -14,6 +14,7 @@ function Summary(props) {
                     <th className="small_font">Cake Quantity</th>
                 </tr>
                 {props.cart?.data?.length > 0 && props?.cart?.data?.map((each,i)=>{
+                    {total += each.price * each.quantity}
                     return (
                         <tr key={i}>
                             <td className="small_font">{each.name}</td>
@@ -24,6 +25,7 @@ function Summary(props) {
                         </tr>
                     )
                 })} 
+                <tr><th colSpan="2">Total</th> <th>{total}</th></tr>
                 </tbody>
             </table> 
     )

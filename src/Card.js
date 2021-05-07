@@ -10,8 +10,6 @@ function Card (props) {
   //     console.log(error)
   // })
     }
-    
-
         return ( 
         <div className="card thiscard" style={{width:"17rem"}}>
               <Link to={`cake/${props.data.cakeid}`}>

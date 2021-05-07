@@ -1,20 +1,12 @@
-import {createStore} from "redux"
-
+import {createStore, applyMiddleware} from "redux"
 import demo from "./reducers"
+import {logger} from "./middleware"
+import thunk from "redux-thunk"
+import createSaga from "redux-saga"
+import rootSaga from "./sagas"
 
-var store=createStore(demo)
+var sagaMiddleware = createSaga()
 
-// store.dispatch({
-//     type:"login"
-// })
+var middleware = applyMiddleware(logger, thunk)
 
-// console.log("..............................", store.getState())
-
-// store.dispatch({
-//     type:"LOGIN",
-//     payload:{email:"mukeshverma643@gmail.com", name:"Mukesh Verma"}
-// })
-
-// console.log("after login match", store.getState())
-
-export default store
+export default createStore(demo, middleware)

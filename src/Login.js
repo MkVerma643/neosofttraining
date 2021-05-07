@@ -1,7 +1,7 @@
-import {useState,useEffect} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import axios from "axios";
 import { connect } from 'react-redux';
+import { useState, useEffect } from "react";
+import { loginUser } from "./reduxstore/thunk";
 
 function Login (props){
 
@@ -14,7 +14,12 @@ function Login (props){
     var user = {}
     var [user, setUser] = useState({})
     var [message, setMessage] = useState({})
-    
+    if (props.isLoggedin) {
+   
+        props.history.push("/");
+     
+    }
+
     let getEmail = (event)=>{ 
         setUser({
             ...user,
@@ -29,52 +34,32 @@ function Login (props){
             password :  event.target.value
         }) 
     }
-        let login =()=>{
-       
-            console.log(user)
-           if(!user.email || !user.password){
-            setMessage({
-                error: "Enter Email And Password"
-            }); 
-           }
-           else if (!validateEmail(user.email)){
-            setMessage({
-                error:  `A Valid Email Please`
-            }); 
-           }
-       else{
-        axios({
-            url:"https://apifromashu.herokuapp.com/api/login",
-            method:"post",
-            data:user,
-        }).then((response)=>{
-            console.log("success: ",response)
-            if(response.data.token){
-                localStorage.token = response.data.token
-                props.dispatch({
-                    type:"LOGIN",
-                    payload:response.data
-                })
-            setMessage({
-                success: "Login Successfull"
-            });
-            props.history.push('/')
-         props.set(true)
-         props.userName(user.name)
+    let login = (e) => {
+        e.preventDefault();
+        // console.log("did you just hit the login button", user);
+        if (!user.email || !user.password) {
+          setMessage({
+            error: "Email And Password Required",
+          });
+        } else if (!validateEmail(user.email)) {
+          setMessage({
+            error: `A Valid Email Please`,
+          });
+        } else {
+          setMessage({
+            error: false,
+          });
+          //thunk
+          props.dispatch(loginUser(user,process.env.REACT_APP_BASE_URL));
+          //thunk
+          // saga code starts
+          // props.dispatch({
+          //     type:"LOGIN",
+          //     payload:user
+          // })
+          // saga code ends
         }
-        else{
-            
-            setMessage({
-                error: "Invalid Credentials"
-            }); 
-        }
-        },(error)=>{
-            console.log(error)
-        })
-        
-       }
-    }
-   
+      };
    
  return(
         <div>
@@ -111,9 +96,12 @@ function Login (props){
             );
  }     
 
-Login =  withRouter(Login)
-export default connect(function (state,props) {
-        return {
-
-        }
-})(Login);
+ Login = withRouter(Login);
+ export default connect(function (state, props) {
+   console.log("states in login component", state);
+   return {
+     loginError: state?.isloginerror,
+     logging: state?.isfetching,
+     isLoggedin: state?.isLoggedin,
+   };
+ })(Login);

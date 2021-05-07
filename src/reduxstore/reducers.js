@@ -7,6 +7,21 @@ var demo = function(state = null, action){
             state['user'] = action.payload
             return state
         } 
+        case "LOGIN_SUCCESS":{
+            // console.log("here we have to write logic for login")
+            state = {...state} 
+            state['isLoggedin'] = true
+            state["user"] = action.payload
+            state['isfetching'] = false
+            state['isloginerror'] = false
+            return state
+        }
+        case "LOGIN_FAILURE":{
+            state = {...state}
+            state["isfetching"] = false
+            state["isloginerror"] = true
+            return state
+        }
         case "LOGOUT":{
             // console.log("here we have to write logic for logout")
             state = {...state} 
@@ -27,6 +42,25 @@ var demo = function(state = null, action){
             state['updatecart'] = action.payload
             return state
         } 
+        case "ADDRESS":{
+            // console.log("redux Session")
+            state = {...state}   
+            state['isaddress'] = true
+            state['address'] = action.payload
+            return state
+        } 
+        case "CHECKOUT":{
+            // console.log("redux Session")
+            state = {...state}   
+            state['page'] = action.payload
+            return state
+        } 
+        case "ORDERS":{
+            // console.log("redux Session")
+            state = {...state}   
+            state['order'] = action.payload
+            return state
+        }
         case "SESSION":{
             // console.log("redux Session")
             state = {...state}   

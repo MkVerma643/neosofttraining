@@ -22,6 +22,7 @@ import payment from "./payment";
 import order from "./order";
 import mart from "./reduxstore/store";
 import ResetPassword from "./ResetPassword";
+import { connect } from 'react-redux';
 
 const admin = lazy(() => import("./Admin"));
 const baseUrl = "https://apifromashu.herokuapp.com/api/";
@@ -88,4 +89,8 @@ function App() {
   );
 }
 
-export default App;
+export default connect(function(state,props){
+  return {
+   isLoggedin:state?.isLoggedin,
+  }
+ })(App);

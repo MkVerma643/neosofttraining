@@ -68,5 +68,6 @@ function CakeDetails(props) {
 export default connect(function(state,props){
   return {
     cart:state?.cart,
+    islogged:state?.isLoggedin
   }
 })(CakeDetails)

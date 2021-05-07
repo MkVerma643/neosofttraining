@@ -6,20 +6,25 @@ import { connect } from 'react-redux';
 function Header (props){ 
   useEffect(()=>{
     axios({
-        method:'post',
-        url:"https://apifromashu.herokuapp.com/api/cakecart",
-        headers:{authtoken:localStorage.token},
-      }).then((response)=>{ 
-        props.dispatch({
-          type:"CART",
-          payload:response.data.data
-        })
-        
-      },(error)=>{
-        console.log("error",error)
+      method:'post',
+      url:"https://apifromashu.herokuapp.com/api/cakecart",
+      headers:{authtoken:localStorage.token},
+    }).then((response)=>{ 
+      console.log("API HIT: Cart success")
+      props.dispatch({
+        type:"CART",
+        payload:response.data.data
       })
-   },[props.updatecart,localStorage.token])
-
+      props.dispatch({
+        type:"UPDATE-CART",
+        payload:true
+      })
+      // setCart(response.data.data)
+      // setRemoved(false)
+    },(error)=>{
+      console.log("error",error)
+    })
+ },[props.updatecart,props.loginstatus])
    
    var [search, setSearch] = useState('') 
    let searchq = (event)=>{ 
@@ -71,6 +76,7 @@ export default connect(function(state,props){
   return {
     user:state?.user?.name,
     loginstatus:state?.isLoggedin,
-    cart:state?.cart
+    cart:state?.cart,
+    updatecart:state?.updatecart
   }
 })(Header);

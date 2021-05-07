@@ -30,6 +30,7 @@ function Cart(props) {
     return (
         <div> 
             <h2>Cart</h2>
+            {props.cart?.data?.length > 0?
             <table className="table table-stripped">
                 <tr>
                     <th>Cake Name</th>
@@ -50,8 +51,11 @@ function Cart(props) {
                     )
                 })} 
             </table>
-            {/* {props.isLoggedin?   :''} */}
-              <Link to="/checkout"><button className="btn btn-success">Checkout</button></Link>
+            : <div className="alert alert-info">
+            No item in Cart
+            </div>}
+            {props.cart?.data?.length > 0 && props.isLoggedin?  
+              <Link to="/checkout"><button className="btn btn-success">Checkout</button></Link>  :null}
              
         </div>
     )
